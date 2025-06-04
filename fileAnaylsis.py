@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (accuracy_score, classification_report,
                              confusion_matrix)
 
-df = pd.read_csv("personality_dataset.csv")  # Adjust filename if needed
+df = pd.read_csv("personality_dataset.csv")  
 print(df.head())
 
 
@@ -24,7 +24,7 @@ le = LabelEncoder()
 df['Stage_fear'] = le.fit_transform(df['Stage_fear'])
 df['Drained_after_socializing'] = le.fit_transform(
     df['Drained_after_socializing'])
-# Extrovert = 0 or 1, (Introvert = opposite
+
 df['Personality'] = le.fit_transform(df['Personality'])
 
 
