@@ -1,0 +1,30 @@
+2025-06-04 22:40:50,271 - INFO - Program Starts
+2025-06-04 22:40:52,492 - INFO - Operator Selected Succesfully
+2025-06-04 22:40:56,914 - INFO - Input Number one taken Successfully
+2025-06-04 22:40:58,229 - INFO - Input Number second taken Successfully
+2025-06-04 22:40:58,229 - INFO - The Number one is: 2 , The Number two is: 34
+2025-06-04 22:40:58,229 - INFO - Addition is Chosen
+2025-06-04 22:40:58,229 - INFO - Successfully!! Entered Add Function
+2025-06-04 22:40:58,230 - INFO - The Sum of 2 and 34 is: 36
+2025-06-04 22:41:16,256 - INFO - Program Starts
+2025-06-04 22:41:22,650 - INFO - Operator Selected Succesfully
+2025-06-04 22:41:25,631 - INFO - Input Number one taken Successfully
+2025-06-04 22:41:26,960 - INFO - Input Number second taken Successfully
+2025-06-04 22:41:26,962 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-04 22:41:26,962 - INFO - Divison is Chosen
+2025-06-04 22:41:26,962 - INFO - Successfully!! Entered Divide Function
+2025-06-04 22:41:26,962 - WARNING - Invalid input resulting in error
+2025-06-04 22:41:43,386 - INFO - Program Starts
+2025-06-04 22:41:56,734 - INFO - Operator Selected Succesfully
+2025-06-04 22:41:56,734 - WARNING - Error raised due to invalid Operation Selection
+2025-06-04 22:42:14,616 - INFO - Program Starts
+2025-06-04 22:42:33,349 - INFO - Operator Selected Succesfully
+2025-06-04 22:42:36,654 - INFO - Input Number one taken Successfully
+2025-06-04 22:42:39,981 - INFO - Input Number second taken Successfully
+2025-06-04 22:42:39,981 - INFO - The Number one is: 60 , The Number two is: 80
+2025-06-04 22:42:39,981 - INFO - Divison is Chosen
+2025-06-04 22:42:39,981 - INFO - Successfully!! Entered Divide Function
+2025-06-04 22:42:39,982 - INFO - The Remainder of 60 and 80 is: 0.75
+2025-06-04 22:42:50,065 - INFO - Program Starts
+2025-06-04 22:42:57,614 - INFO - Operator Selected Succesfully
+2025-06-04 22:42:57,614 - WARNING - Error raised due to invalid Operation Selection
