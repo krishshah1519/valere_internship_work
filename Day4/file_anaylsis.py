@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (accuracy_score, classification_report,
                              confusion_matrix)
 
-df = pd.read_csv("personality_dataset.csv")  
+df = pd.read_csv("personality_dataset.csv")
 print(df.head())
 
 
