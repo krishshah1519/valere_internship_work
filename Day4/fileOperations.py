@@ -18,6 +18,10 @@ with open("data.csv", "w", newline="") as file:
     writer.writerow(["san", 22])
 
 with open("data.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+with open("data.csv", "r") as file:
     reader = csv.DictReader(file)
     for row in reader:
         print(row["Name"], row["Age"])
@@ -26,7 +30,7 @@ data = {
     "name": "Krish",
     "age": 21,
     "skills": ["table tennis", "swimming"]
-    }
+}
 
 with open("data.json", "w") as file:
     json.dump(data, file, indent=4)

@@ -1,3 +1,11 @@
+import logging
+
+logging.basicConfig(
+    filename="calculator.log",
+    level=logging.DEBUG,
+    format="%{asctime}s - %{levelname} - %{message}s"
+)
+
 def add(x, y):
     print("Result: ", x+y)
 

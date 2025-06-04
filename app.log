@@ -1,0 +1,6 @@
+2025-06-04 16:51:33,879 - INFO - Application started
+2025-06-04 16:51:33,879 - DEBUG - Starting setup
+2025-06-04 16:51:33,879 - INFO - Dividing 10 by 2
+2025-06-04 16:51:33,879 - INFO - Result is 5.0
+2025-06-04 16:51:33,879 - INFO - Dividing 10 by 0
+2025-06-04 16:51:33,879 - ERROR - Division by zero is not allowed
