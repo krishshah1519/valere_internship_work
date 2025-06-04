@@ -1,11 +1,11 @@
 intNum = int(input("Enter the number to Check if It is Prime: "))
 is_prime = True
-for i in range(2,int(intNum**0.5) +1):
+for i in range(2, int(intNum ** 0.5) + 1):
     if intNum % i == 0 or intNum <= 0:
         is_prime = False
         break
 
-if is_prime == True:
+if is_prime:
     print("The Number is a Prime Number")
-if is_prime == False:
+if not is_prime:
     print("The Number is not a Prime Number")
