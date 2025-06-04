@@ -39,7 +39,7 @@ if inputOperator == 4:
     inputNum1 = int(input("Enter First Number: "))
     inputNum2 = int(input("Enter Second Number: "))
     divide(inputNum1, inputNum2)
-else:
+if inputOperator > 4:
     raise Exception("Invalid Operation Selected")
 
 
