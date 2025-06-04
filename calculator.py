@@ -24,14 +24,22 @@ inputOperator = int(input("1).Add \n2).Subtract \n3).Multiply \n4).Divide\n"))
 
 
 if inputOperator == 1:
+    inputNum1 = int(input("Enter First Number: "))
+    inputNum2 = int(input("Enter Second Number: "))
     add(inputNum1, inputNum2)
 if inputOperator == 2:
+    inputNum1 = int(input("Enter First Number: "))
+    inputNum2 = int(input("Enter Second Number: "))
     subtract(inputNum1, inputNum2)
 if inputOperator == 3:
+    inputNum1 = int(input("Enter First Number: "))
+    inputNum2 = int(input("Enter Second Number: "))
     multiply(inputNum1, inputNum2)
 if inputOperator == 4:
+    inputNum1 = int(input("Enter First Number: "))
+    inputNum2 = int(input("Enter Second Number: "))
     divide(inputNum1, inputNum2)
 else:
     raise Exception("Invalid Operation Selected")
-inputNum1 = int(input("Enter First Number: "))
-inputNum2 = int(input("Enter Second Number: "))
+
+
