@@ -1,5 +1,3 @@
-# The File parser will open the file based on the given path
-# The File parser can Delete the file based on the path
 import logging
 import os
 import csv
