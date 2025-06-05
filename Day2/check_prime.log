@@ -18,3 +18,10 @@
 2025-06-04 23:04:38,190 - INFO - The Number is smaller than or equal to 1
 2025-06-04 23:04:38,190 - INFO - The Number is Found to Be not a Prime Number
 2025-06-04 23:04:38,190 - INFO - The Programs Ends Here
+2025-06-05 13:25:09,646 - INFO - The Program is Running...
+2025-06-05 13:25:11,478 - INFO - The Input Number is taken succsessfully
+2025-06-05 13:25:11,479 - INFO - The Input Number is: 34
+2025-06-05 13:25:11,479 - INFO - The Program is in for loop
+2025-06-05 13:25:11,479 - INFO - The Number is Either Divisible by 2 
+2025-06-05 13:25:11,479 - INFO - The Number is Found to Be not a Prime Number
+2025-06-05 13:25:11,479 - INFO - The Programs Ends Here
