@@ -1,7 +1,9 @@
 import logging
 import os
 import csv
+import pdb
 
+pdb.set_trace()
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(
@@ -70,7 +72,7 @@ if operation == 2:
 
                 logger.info("The input is taken successfully")
                 file.write(f"\n{content}")
-                print("The content have been updated") 
+                print("The content have been updated")
                 file.close()
 
             if file_path.endswith(".csv"):
