@@ -28,3 +28,184 @@
 2025-06-04 22:42:50,065 - INFO - Program Starts
 2025-06-04 22:42:57,614 - INFO - Operator Selected Succesfully
 2025-06-04 22:42:57,614 - WARNING - Error raised due to invalid Operation Selection
+2025-06-05 11:53:30,460 - INFO - Program Starts
+2025-06-05 11:53:32,899 - INFO - Operator Selected Succesfully
+2025-06-05 11:53:32,899 - ERROR - Error raised due to invalid Operation Selection
+2025-06-05 11:54:09,369 - INFO - Program Starts
+2025-06-05 11:54:14,131 - INFO - Operator Selected Succesfully
+2025-06-05 11:54:15,881 - INFO - Input Number one taken Successfully
+2025-06-05 11:54:17,056 - INFO - Input Number second taken Successfully
+2025-06-05 11:54:17,057 - INFO - The Number one is: 23 , The Number two is: 0
+2025-06-05 11:54:17,057 - INFO - Divison is Chosen
+2025-06-05 11:54:17,057 - INFO - Successfully!! Entered Divide Function
+2025-06-05 11:54:17,057 - ERROR - Invalid input resulting in error
+2025-06-05 11:57:23,199 - INFO - Program Starts
+2025-06-05 11:57:26,557 - INFO - Operator Selected Succesfully
+2025-06-05 11:57:28,519 - INFO - Input Number one taken Successfully
+2025-06-05 11:57:29,605 - INFO - Input Number second taken Successfully
+2025-06-05 11:57:29,605 - INFO - The Number one is: 23 , The Number two is: 0
+2025-06-05 11:57:29,605 - INFO - Divison is Chosen
+2025-06-05 11:57:29,605 - INFO - Successfully!! Entered Divide Function
+2025-06-05 11:57:29,605 - ERROR - Invalid input resulting in error
+2025-06-05 11:58:14,649 - INFO - Program Starts
+2025-06-05 11:58:15,997 - INFO - Operator Selected Succesfully
+2025-06-05 11:58:18,322 - INFO - Input Number one taken Successfully
+2025-06-05 11:58:19,221 - INFO - Input Number second taken Successfully
+2025-06-05 11:58:19,222 - INFO - The Number one is: 23 , The Number two is: 23
+2025-06-05 11:58:19,222 - INFO - Addition is Chosen
+2025-06-05 11:58:19,222 - INFO - Successfully!! Entered Add Function
+2025-06-05 11:58:19,222 - INFO - The Sum of 23 and 23 is: 46
+2025-06-05 11:58:19,223 - INFO - Program Starts
+2025-06-05 11:58:23,555 - INFO - Operator Selected Succesfully
+2025-06-05 11:58:49,466 - INFO - Input Number one taken Successfully
+2025-06-05 11:58:50,296 - INFO - Input Number second taken Successfully
+2025-06-05 11:58:50,296 - INFO - The Number one is: 23 , The Number two is: 23
+2025-06-05 11:58:50,296 - INFO - User Wants to Quit the Program
+2025-06-05 12:04:31,563 - INFO - Program Starts
+2025-06-05 12:04:33,843 - INFO - Operator Selected Succesfully
+2025-06-05 12:04:35,453 - INFO - Input Number one taken Successfully
+2025-06-05 12:04:36,673 - INFO - Input Number second taken Successfully
+2025-06-05 12:04:36,674 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:04:36,674 - INFO - Divison is Chosen
+2025-06-05 12:04:36,674 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:04:36,674 - ERROR - Invalid input resulting in error
+2025-06-05 12:05:41,135 - INFO - Program Starts
+2025-06-05 12:05:44,607 - INFO - Operator Selected Succesfully
+2025-06-05 12:05:46,108 - INFO - Input Number one taken Successfully
+2025-06-05 12:05:46,918 - INFO - Input Number second taken Successfully
+2025-06-05 12:05:46,919 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:05:46,919 - INFO - Divison is Chosen
+2025-06-05 12:05:46,919 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:05:46,919 - ERROR - Invalid input resulting in error
+2025-06-05 12:07:09,091 - INFO - Program Starts
+2025-06-05 12:07:10,327 - INFO - Operator Selected Succesfully
+2025-06-05 12:07:11,505 - INFO - Input Number one taken Successfully
+2025-06-05 12:07:12,788 - INFO - Input Number second taken Successfully
+2025-06-05 12:07:12,789 - INFO - The Number one is: 23 , The Number two is: 4
+2025-06-05 12:07:12,789 - INFO - Divison is Chosen
+2025-06-05 12:07:12,789 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:07:12,789 - INFO - The Remainder of 23 and 4 is: 5.75
+2025-06-05 12:07:12,789 - INFO - Program Starts
+2025-06-05 12:07:16,254 - INFO - Operator Selected Succesfully
+2025-06-05 12:07:17,911 - INFO - Input Number one taken Successfully
+2025-06-05 12:07:18,952 - INFO - Input Number second taken Successfully
+2025-06-05 12:07:18,952 - INFO - The Number one is: 234 , The Number two is: 0
+2025-06-05 12:07:18,952 - INFO - Divison is Chosen
+2025-06-05 12:07:18,952 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:07:18,952 - ERROR - Invalid input resulting in error
+2025-06-05 12:07:18,952 - WARNING - The user tried to divided a number by Zero Error! Cannot divide by zero
+2025-06-05 12:10:43,808 - INFO - Program Starts
+2025-06-05 12:10:45,513 - INFO - Operator Selected Succesfully
+2025-06-05 12:10:46,763 - INFO - Input Number one taken Successfully
+2025-06-05 12:10:47,883 - INFO - Input Number second taken Successfully
+2025-06-05 12:10:47,883 - INFO - The Number one is: 23 , The Number two is: 0
+2025-06-05 12:10:47,884 - INFO - Divison is Chosen
+2025-06-05 12:10:47,884 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:10:47,884 - ERROR - Invalid input resulting in error
+2025-06-05 12:11:15,347 - INFO - Program Starts
+2025-06-05 12:11:20,536 - INFO - Operator Selected Succesfully
+2025-06-05 12:11:21,733 - INFO - Input Number one taken Successfully
+2025-06-05 12:11:23,081 - INFO - Input Number second taken Successfully
+2025-06-05 12:11:23,081 - INFO - The Number one is: 23 , The Number two is: 0
+2025-06-05 12:11:23,081 - INFO - Divison is Chosen
+2025-06-05 12:11:23,081 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:11:23,081 - ERROR - Invalid input resulting in error
+2025-06-05 12:12:47,487 - INFO - Program Starts
+2025-06-05 12:12:48,773 - INFO - Operator Selected Succesfully
+2025-06-05 12:12:49,974 - INFO - Input Number one taken Successfully
+2025-06-05 12:12:51,447 - INFO - Input Number second taken Successfully
+2025-06-05 12:12:51,448 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:12:51,448 - INFO - Divison is Chosen
+2025-06-05 12:12:51,448 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:12:51,448 - ERROR - Invalid input resulting in error
+2025-06-05 12:12:51,448 - INFO - Program Starts
+2025-06-05 12:13:11,038 - INFO - Operator Selected Succesfully
+2025-06-05 12:13:12,427 - INFO - Input Number one taken Successfully
+2025-06-05 12:13:15,304 - INFO - Input Number second taken Successfully
+2025-06-05 12:13:15,304 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:13:15,304 - INFO - Divison is Chosen
+2025-06-05 12:13:15,305 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:13:15,305 - ERROR - Invalid input resulting in error
+2025-06-05 12:13:15,305 - INFO - Program Starts
+2025-06-05 12:14:51,930 - INFO - Operator Selected Succesfully
+2025-06-05 12:14:53,247 - INFO - Input Number one taken Successfully
+2025-06-05 12:14:53,964 - INFO - Input Number second taken Successfully
+2025-06-05 12:14:53,964 - INFO - The Number one is: 23 , The Number two is: 0
+2025-06-05 12:14:53,964 - INFO - Divison is Chosen
+2025-06-05 12:14:53,964 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:14:53,964 - ERROR - Invalid input resulting in error
+2025-06-05 12:14:53,964 - INFO - Program Starts
+2025-06-05 12:15:25,652 - INFO - Operator Selected Succesfully
+2025-06-05 12:15:25,652 - INFO - User Wants to Quit the Program
+2025-06-05 12:15:34,230 - INFO - Program Starts
+2025-06-05 12:15:35,374 - INFO - Operator Selected Succesfully
+2025-06-05 12:15:36,979 - INFO - Input Number one taken Successfully
+2025-06-05 12:15:37,575 - INFO - Input Number second taken Successfully
+2025-06-05 12:15:37,576 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:15:37,576 - INFO - Divison is Chosen
+2025-06-05 12:15:37,576 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:15:37,576 - ERROR - Cannot Divide a number with zero
+2025-06-05 12:15:37,576 - INFO - Program Starts
+2025-06-05 12:15:40,909 - INFO - Operator Selected Succesfully
+2025-06-05 12:15:40,909 - INFO - User Wants to Quit the Program
+2025-06-05 12:16:04,568 - INFO - Program Starts
+2025-06-05 12:16:05,601 - INFO - Operator Selected Succesfully
+2025-06-05 12:16:06,678 - INFO - Input Number one taken Successfully
+2025-06-05 12:16:07,665 - INFO - Input Number second taken Successfully
+2025-06-05 12:16:07,665 - INFO - The Number one is: 34 , The Number two is: 0
+2025-06-05 12:16:07,665 - INFO - Divison is Chosen
+2025-06-05 12:16:07,665 - INFO - Successfully!! Entered Divide Function
+2025-06-05 12:16:07,666 - WARNING - The user tried to divided a number by Zero 
+2025-06-05 12:16:07,666 - INFO - Program Starts
+2025-06-05 12:16:20,614 - INFO - Operator Selected Succesfully
+2025-06-05 12:16:20,614 - INFO - User Wants to Quit the Program
+2025-06-05 12:21:21,282 - INFO - Program Starts
+2025-06-05 12:21:23,818 - INFO - Operator Selected Succesfully
+2025-06-05 12:21:23,818 - ERROR - Error raised due to invalid Operation Selection
+2025-06-05 12:21:38,041 - INFO - Input Number one taken Successfully
+2025-06-05 12:21:38,933 - INFO - Input Number second taken Successfully
+2025-06-05 12:21:38,933 - INFO - The Number one is: 7 , The Number two is: 7
+2025-06-05 12:21:38,933 - INFO - Program Starts
+2025-06-05 12:21:42,153 - INFO - Operator Selected Succesfully
+2025-06-05 12:21:42,153 - INFO - User Wants to Quit the Program
+2025-06-05 12:21:43,870 - INFO - Program Starts
+2025-06-05 12:21:45,414 - INFO - Operator Selected Succesfully
+2025-06-05 12:21:45,415 - ERROR - Error raised due to invalid Operation Selection
+2025-06-05 12:22:13,486 - INFO - Program Starts
+2025-06-05 12:22:16,255 - INFO - Operator Selected Succesfully
+2025-06-05 12:22:16,255 - ERROR - Error raised due to invalid Operation Selection
+2025-06-05 12:22:19,461 - INFO - Input Number one taken Successfully
+2025-06-05 12:22:20,244 - INFO - Input Number second taken Successfully
+2025-06-05 12:22:20,244 - INFO - The Number one is: 23 , The Number two is: 23
+2025-06-05 12:22:20,244 - INFO - Program Starts
+2025-06-05 12:23:54,511 - INFO - Operator Selected Succesfully
+2025-06-05 12:23:54,511 - INFO - User Wants to Quit the Program
+2025-06-05 12:23:57,757 - INFO - Program Starts
+2025-06-05 12:23:59,488 - INFO - Operator Selected Succesfully
+2025-06-05 12:23:59,488 - ERROR - Error raised due to invalid Operation Selection
+2025-06-05 12:23:59,489 - INFO - Program Starts
+2025-06-05 12:24:24,709 - INFO - Operator Selected Succesfully
+2025-06-05 12:24:28,022 - INFO - Input Number one taken Successfully
+2025-06-05 12:24:28,979 - INFO - Input Number second taken Successfully
+2025-06-05 12:24:28,980 - INFO - The Number one is: 5 , The Number two is: 2
+2025-06-05 12:24:28,980 - INFO - User Wants to Quit the Program
+2025-06-05 12:24:36,312 - INFO - Program Starts
+2025-06-05 12:24:39,381 - INFO - Operator Selected Succesfully
+2025-06-05 12:24:40,995 - INFO - Input Number one taken Successfully
+2025-06-05 12:24:42,776 - INFO - Input Number second taken Successfully
+2025-06-05 12:24:42,776 - INFO - The Number one is: 23 , The Number two is: 23
+2025-06-05 12:24:42,776 - INFO - Subtraction is Chosen
+2025-06-05 12:24:42,776 - INFO - Successfully!! Entered Subtract Function
+2025-06-05 12:24:42,777 - INFO - The Difference of 23 and 23 is: 0
+2025-06-05 12:24:42,777 - INFO - Program Starts
+2025-06-05 12:24:46,336 - INFO - Operator Selected Succesfully
+2025-06-05 12:26:05,467 - INFO - Input Number one taken Successfully
+2025-06-05 12:26:06,282 - INFO - Input Number second taken Successfully
+2025-06-05 12:26:06,282 - INFO - The Number one is: 34 , The Number two is: 23
+2025-06-05 12:26:06,282 - INFO - User Wants to Quit the Program
+2025-06-05 12:26:09,303 - INFO - Program Starts
+2025-06-05 12:26:10,753 - INFO - Operator Selected Succesfully
+2025-06-05 12:26:10,753 - INFO - User Wants to Quit the Program
+2025-06-05 12:27:10,848 - INFO - Program Starts
+2025-06-05 12:27:11,927 - INFO - Operator Selected Succesfully
+2025-06-05 12:27:11,927 - INFO - User Wants to Quit the Program
