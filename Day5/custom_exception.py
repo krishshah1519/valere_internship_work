@@ -9,4 +9,5 @@ try:
     if age < 0:
         raise InvalidAgeError("The age Cannot be Negative:", age)
 except InvalidAgeError as e:
-    print(f"Error:{e} The age Cannot be Negative:{e.age}")
+    print(f"Error: {e}")
+    print(f"Invalid age: {e.age}")
