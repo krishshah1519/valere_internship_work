@@ -15,3 +15,18 @@
 2025-06-05 18:43:06,859 - INFO - The Parser has Started Running
 2025-06-05 18:43:23,731 - INFO - file path taken d:\valere_internship_work\requirements.txt
 2025-06-05 18:43:29,536 - INFO - Operation is taken 34
+2025-06-06 12:32:58,504 - INFO - The Parser has Started Running
+2025-06-06 12:33:13,363 - INFO - file path taken dsgsg
+2025-06-06 12:33:28,605 - INFO - Operation is taken 1
+2025-06-06 12:33:34,236 - INFO - successfully entered operation 1
+2025-06-06 12:33:51,237 - ERROR - File Not Found Error
+2025-06-06 15:08:09,846 - INFO - The Parser has Started Running
+2025-06-06 15:08:18,377 - INFO - file path taken asdf
+2025-06-06 15:08:19,908 - INFO - Operation is taken 1
+2025-06-06 15:08:19,908 - INFO - successfully entered operation 1
+2025-06-06 15:08:19,909 - ERROR - File Not Found Error
+Traceback (most recent call last):
+  File "D:\valere_internship_work\day5\file_parser.py", line 29, in <module>
+    with open(f"{file_path}", "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'asdf'

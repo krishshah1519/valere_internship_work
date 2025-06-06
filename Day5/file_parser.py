@@ -56,11 +56,11 @@ if operation == 1:
 
     except FileNotFoundError:
         print(f"Error!!: file {file_path} not found ")
-        logger.error("File Not Found Error")
+        logger.exception("File Not Found Error")
 
     except Exception as e:
         print(f"Error!!: Cannot open the file {file_path} due to {e}")
-        logger.error(f"ERROR: {e} ")
+        logger.exception(f"ERROR: {e} ")
 
 if operation == 2:
     logger.info("successfully entered operation 2")
@@ -86,17 +86,19 @@ if operation == 2:
 
     except FileNotFoundError:
         print(f"Error!!: file {file_path} not found ")
-        logger.error("File Not Found Error")
+        logger.exception("File Not Found Error")
 
     except Exception as e:
         print(f"Error!!: Cannot append the file {file_path} due to {e}")
-        logger.error(f"ERROR: {e} ")
+        logger.exception(f"ERROR: {e} ")
 if operation == 3:
     try:
         os.remove(file_path)
 
     except FileNotFoundError:
         print(f"Error: file {file_path} not found ")
+        logger.exception("File Not Found Error")
 
     except OSError as e:
         print(f"Error: Unable to delete file- {file_path} due to {e}")
+        logger.exception(f"ERROR: {e} ")
