@@ -1,7 +1,7 @@
 import unittest
-import calculator
+from Day1 import calculator
 
-class Test_Calculator(unittest.TestCase):
+class TestCalculator(unittest.TestCase):
 
     def test_add(self):
         self.assertEqual(calculator.add(9,6),15)
