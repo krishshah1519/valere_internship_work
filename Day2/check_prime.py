@@ -8,16 +8,18 @@ logging.basicConfig(
 )
 
 
-def checkPrime():
+def checkPrime(intNum):
     logger.info("The Program is Running...")
-    intNum = int(input("Enter the number to Check if It is Prime: "))
-    logger.info("The Input Number is taken succsessfully")
+
+    logger.info("The Input Number is taken successfully")
     logger.info(f"The Input Number is: {intNum}")
     is_prime = True
 
     if intNum <= 1:
         logger.info("The Number is smaller than or equal to 1")
-        is_prime = False
+        print('The number is not a prime number')
+        return False
+
     for i in range(2, int(intNum ** 0.5) + 1):
         logger.info("The Program is in for loop")
         if intNum % i == 0:
@@ -28,11 +30,16 @@ def checkPrime():
     if is_prime:
         logger.info("The Number is Found to be a Prime Number")
         print("The Number is a Prime Number")
-    if not is_prime:
+        logger.info("The Programs Ends Here")
+        return True
+
+    if not is_prime :
         logger.info("The Number is Found to Be not a Prime Number")
         print("The Number is not a Prime Number")
+        logger.info("The Programs Ends Here")
+        return False
+    return None
 
-    logger.info("The Programs Ends Here")
+intNum = int(input("Enter the number to Check if It is Prime: "))
+checkPrime(intNum)
 
-
-checkPrime()
