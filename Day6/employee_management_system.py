@@ -1,3 +1,5 @@
+from openpyxl.styles.builtins import output
+
 
 class Employee:
 
@@ -21,49 +23,67 @@ class Employee:
         self.phone_number = phone_number
 
     def display(self):
-        print("-------------------------------")
-        print(f"Name: {self.name}")
-        print(f"Age: {self.age}")
-        print(f"Gender: {self.gender}")
-        print(f"Position: {self.position}")
-        print(f"Salary: {self.salary}")
-        print(f"Phone Number: {self.phone_number}")
-        print("-------------------------------")
+        expected = ("-------------------------------\n"
+                    f"Employee ID: {self.emp_id}\n"
+                    f"Name: {self.name}\n"
+                    f"Age: {self.age}\n"
+                    f"Gender: {self.gender}\n"
+                    f"Position: {self.position}\n"
+                    f"Salary: {self.salary}\n"
+                    f"Phone Number: {self.phone_number}\n"
+                    "-------------------------------\n")
+
+        return print(expected)
 
 
-def add_employee():
-    name = input('Enter employee full name: ')
-    age = input('Enter employee age: ')
-    gender = input('Enter employee gender (M or F) :')
-    position = input('Enter employee position: ')
-    salary = input('Enter the salary: ')
-    phone_number = input('Enter employee number: ')
-
-    emp_id = Employee.emp_id
-    name = Employee(emp_id, name, age, gender, position, salary, phone_number)
-    Employee_Management.employee.append(name)
-
-
-class Employee_Management():
+class EmployeeManagement():
     def __init__(self):
-        pass
-    employee = []
+        self.employee = []
+
+    def add_employee(self):
+
+        fields = [
+            'name',
+            'age',
+            'gender',
+            'position',
+            'salary',
+            'phone_number']
+        inp = []
+        for i in fields:
+
+            value = input(f"Enter the {i}: ")
+            while value == '':
+                print(f"Please!!! enter the {i}")
+                value = input(f"Enter the {i}: ")
+            inp.append(value)
+        emp_id = Employee.emp_id
+
+        name = Employee(
+            int(emp_id), inp[0], int(
+                inp[1]), inp[2], inp[3], int(
+                inp[4]), int(
+                inp[5]))
+        self.employee.append(name)
+        Employee.emp_id += 1
+        print(f"employee {inp[0]} created successfully ")
 
     def display_employee(self):
         if not self.employee:
             print('No employee data found')
-            return
-
+            return 'No employee data found'
+        print(len(self.employee))
         for emp in self.employee:
             emp.display()
+
+        return None
 
     def find(self, name):
         for emp in self.employee:
             if emp.name.lower() == name.lower():
-                emp.display()
-                return
-            else:
-                print('Employee not found')
+                return emp.display()
+        print('No employee data found')
+        return 'No employee data found'
 
     def remove(self, name):
         for emp in self.employee:
@@ -71,29 +91,37 @@ class Employee_Management():
                 self.employee.remove(emp)
                 print(f"Employee {name} removed successfully.")
                 return
-            else:
-                print('Employee not found')
+        print('No employee data found')
+        return 'No employee data found'
 
     def update(self, name):
         for emp in self.employee:
             if emp.name.lower() == name.lower():
                 age = input('Enter age(leave blank to skip): ')
+                gender = input('Enter gender(leave blank to skip): ')
                 salary = input('Enter salary(leave blank to skip): ')
                 position = input('Enter position(leave blank to skip): ')
                 phone_number = input(
                     'Enter phone number(leave blank to skip): ')
 
-                if age is not None:
+                if age != '':
                     emp.age = age
-                if salary is not None:
-                    emp.salary = salary
-                if position is not None:
+                if gender != '':
+                    emp.gender = gender
+                if salary != '':
+                    emp.salary = int(salary)
+                if position != '':
                     emp.position = position
-                if phone_number is not None:
-                    emp.phone_number = phone_number
+                if phone_number != '':
+                    emp.phone_number = int(phone_number)
+            return print(f'Employee {emp.name} data Updated\n', emp.display())
+        return print('Employee not found')
 
     def clear(self):
         self.employee.clear()
+        if len(self.employee) == 0:
+            return print('All Data cleared')
+        return print("Failed to clear all employees records")
 
     def run(self):
         while True:
@@ -109,7 +137,7 @@ class Employee_Management():
             choice = int(input("Enter your choice: "))
 
             if choice == 1:
-                add_employee()
+                self.add_employee()
             elif choice == 2:
                 self.display_employee()
             elif choice == 3:
@@ -131,5 +159,5 @@ class Employee_Management():
 
 
 if __name__ == "__main__":
-    ems = Employee_Management()
+    ems = EmployeeManagement()
     ems.run()

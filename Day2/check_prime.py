@@ -33,13 +33,13 @@ def checkPrime(intNum):
         logger.info("The Programs Ends Here")
         return True
 
-    if not is_prime :
+    if not is_prime:
         logger.info("The Number is Found to Be not a Prime Number")
         print("The Number is not a Prime Number")
         logger.info("The Programs Ends Here")
         return False
     return None
 
+
 intNum = int(input("Enter the number to Check if It is Prime: "))
 checkPrime(intNum)
-

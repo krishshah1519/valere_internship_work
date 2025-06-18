@@ -1,5 +1,3 @@
-import csv
-import json
 
 with open("example.txt", "w") as file:
     file.write("Hello, world!\nThis is a text file.")
@@ -12,6 +10,7 @@ with open("example.txt", "r") as file:
     print(content)
 
 with open("data.csv", "w", newline="") as file:
+    inv = input("enter input here: ")
     writer = csv.writer(file)
     writer.writerow(["Name", "Age"])
     writer.writerow(["Krish", 21])

@@ -8,10 +8,12 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
+
 class InvalidAgeError(Exception):
     def __init__(self, message, age):
         super().__init__(message)
         self.age = age
+
 
 logging.debug("The program stats running")
 

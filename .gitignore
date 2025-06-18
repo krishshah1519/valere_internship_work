@@ -1,2 +1,4 @@
-# Ignore files 
-venv/
+venv
+temp_code.py
+__pycache__
+*.log

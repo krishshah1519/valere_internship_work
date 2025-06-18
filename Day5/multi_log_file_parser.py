@@ -4,7 +4,7 @@ import json
 import os
 
 
-def setup_logger(logger_name, log_name,):
+def setup_logger(logger_name, log_name):
     logger = logging.getLogger(f"{logger_name}")
     logger.setLevel(logging.DEBUG)
 

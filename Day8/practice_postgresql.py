@@ -5,8 +5,8 @@ conn = psycopg2.connect(
     database="databasename",
     user='root',
     password='root',
-    host='localhost',
-    port='5433'
+    host='',
+    port='5432'
 )
 
 # Creating a cursor object using the

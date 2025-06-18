@@ -1,16 +1,14 @@
 import logging
 import os
 import csv
-import pdb
 
-pdb.set_trace()
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(
     filename="file_parser.log",
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s"
-    )
+)
 
 logger.info("The Parser has Started Running")
 file_path = input("Enter The file path: ")
@@ -51,16 +49,14 @@ if operation == 1:
                 logger.info("Printed the file Data")
                 file.close()
                 logger.info("File closed")
-            else:
-                print("Other file types not supported yet!")
 
     except FileNotFoundError:
         print(f"Error!!: file {file_path} not found ")
-        logger.exception("File Not Found Error")
+        logger.error("File Not Found Error")
 
     except Exception as e:
         print(f"Error!!: Cannot open the file {file_path} due to {e}")
-        logger.exception(f"ERROR: {e} ")
+        logger.error(f"ERROR: {e} ")
 
 if operation == 2:
     logger.info("successfully entered operation 2")
@@ -86,19 +82,17 @@ if operation == 2:
 
     except FileNotFoundError:
         print(f"Error!!: file {file_path} not found ")
-        logger.exception("File Not Found Error")
+        logger.error("File Not Found Error")
 
     except Exception as e:
         print(f"Error!!: Cannot append the file {file_path} due to {e}")
-        logger.exception(f"ERROR: {e} ")
+        logger.error(f"ERROR: {e} ")
 if operation == 3:
     try:
         os.remove(file_path)
 
     except FileNotFoundError:
         print(f"Error: file {file_path} not found ")
-        logger.exception("File Not Found Error")
 
     except OSError as e:
         print(f"Error: Unable to delete file- {file_path} due to {e}")
-        logger.exception(f"ERROR: {e} ")

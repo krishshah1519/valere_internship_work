@@ -1,6 +1,6 @@
 
 class Practice:
-    def __init__(self,name,age):
+    def __init__(self, name, age):
         self.name = name
         self.age = age
 
@@ -11,16 +11,18 @@ class Practice:
         print("hi")
 
 
-Student1 = Practice("krish",21)
+Student1 = Practice("krish", 21)
 Student1.cout()
 
+
 class AgeCheck(Practice):
-    def __init__(self,home):
+    def __init__(self, home):
         self.home = home
 
     def out(self):
         print(f" you have {self.home} home")
 
-ss  = AgeCheck(1)
+
+ss = AgeCheck(1)
 
 ss.pp()

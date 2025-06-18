@@ -11,27 +11,28 @@ logging.basicConfig(
 
 def add(x, y):
     logger.info("Successfully!! Entered Add Function")
-    print("Result: ", x+y)
     logging.info(f"The Sum of {x} and {y} is: {x + y}")
+    return x + y
 
 
 def subtract(x, y):
     logger.info("Successfully!! Entered Subtract Function")
-    print("Result: ", x-y)
     logger.info(f"The Difference of {x} and {y} is: {x - y}")
+    return x - y
 
 
 def multiply(x, y):
     logger.info("Successfully!! Entered Multiply Function")
-    print("Result: ", x*y)
     logger.info(f"The Product of {x} and {y} is: {x * y}")
+    return x * y
 
 
 def divide(x, y):
     logger.info("Successfully!! Entered Divide Function")
     try:
-        print("Result: ", x/y)
         logger.info(f"The Remainder of {x} and {y} is: {x / y}")
+        return x / y
+
     except ZeroDivisionError:
         print("Cannot Divide a digit with 0")
         logger.warning("The user tried to divided a number by Zero ")
