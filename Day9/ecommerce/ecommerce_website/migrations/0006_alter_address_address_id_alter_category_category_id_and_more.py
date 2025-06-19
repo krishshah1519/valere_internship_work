@@ -7,7 +7,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ecommerce_website', '0005_customer_is_verified_alter_address_address_id_and_more'),
+        ('ecommerce_website',
+         '0005_customer_is_verified_alter_address_address_id_and_more'),
     ]
 
     operations = [

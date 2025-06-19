@@ -10,9 +10,11 @@ from django.utils.crypto import get_random_string
 
 # Create your views here.
 
+
 def generate_random_alphanumeric(length):
     """Generates a random alphanumeric string of the specified length."""
     return get_random_string(length)
+
 
 def send_email(email, otp):
     subject = "Email Verification and Account Activation"
@@ -20,11 +22,13 @@ def send_email(email, otp):
     sender_email = EMAIL_HOST_USER
     send_mail(subject, msg, sender_email, [email])
 
+
 def send_email1(email):
     subject = "Email Verification and Account Activation"
     msg = f"Email has been Successfully verified"
     sender_email = EMAIL_HOST_USER
     send_mail(subject, msg, sender_email, [email])
+
 
 @login_required
 def index(request):
@@ -82,6 +86,7 @@ def login(request):
 #     return render(request, "ecommerce_website/signup.html")
 #
 
+
 def signup(request):
     if request.method == "POST":
         name = request.POST["name"]
@@ -98,7 +103,6 @@ def signup(request):
 
         otp = generate_random_alphanumeric(6)
         send_email(email, otp)
-
 
         request.session['pending_user'] = {
             "name": name,
@@ -130,9 +134,8 @@ def verify_otp(request):
                 phone_number=user_data["phone"],
                 email=user_data["email"],
                 password=user_data["password"],
-                is_verified = True
+                is_verified=True
             )
-
 
             request.session.pop("pending_user", None)
             request.session.pop("otp", None)

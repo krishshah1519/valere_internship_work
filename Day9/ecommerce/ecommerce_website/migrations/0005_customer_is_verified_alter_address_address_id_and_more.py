@@ -7,7 +7,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ecommerce_website', '0004_paymentmethod_productimage_reviewimage_and_more'),
+        ('ecommerce_website',
+         '0004_paymentmethod_productimage_reviewimage_and_more'),
     ]
 
     operations = [

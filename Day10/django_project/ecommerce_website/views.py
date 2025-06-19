@@ -1,47 +1,33 @@
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from random import randint
-
-from Demos.win32ts_logoff_disconnected import username
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, EmailMultiAlternatives
+from django.contrib import messages
+from django.contrib.auth.views import PasswordChangeView
 from ecommerce.settings import EMAIL_HOST_USER
-from .forms import SignUp
+from .forms import SignUp, ChangePasswordForm
 from .models import Customer
-from django.contrib.auth import authenticate, login as auth_login
 
-
-# Create your views here.
 
 def send_email(email, otp, uname):
     subject = "Email Verification and Account Activation"
     from_email = EMAIL_HOST_USER
     to_email = [email]
-    name = uname
-
-    # Context to pass to the HTML template
-    context = {
-        'user': name,
-        'otp': otp
-    }
-
-    # Render HTML email from template
+    context = {'user': uname, 'otp': otp}
     html_content = render_to_string('emails/emails.html', context)
-
-    # Optional: plain text version
     text_content = f"Hi {uname},\nYour OTP is: {otp}. It is valid for 5 minutes.\nPlease do not share this code."
 
-    # Send the email
     email_message = EmailMultiAlternatives(
         subject, text_content, from_email, to_email)
     email_message.attach_alternative(html_content, "text/html")
     email_message.send()
 
 
-def send_email1(email):
-    subject = "Email Verification and Account Activation"
-    msg = f"Email has been Successfully verified"
+def send_email_successful_verification(email):
+    subject = "Email Successfully Verified"
+    msg = "Your email has been successfully verified."
     sender_email = EMAIL_HOST_USER
     send_mail(subject, msg, sender_email, [email])
 
@@ -50,7 +36,8 @@ def generate_otp():
     return randint(100000, 999999)
 
 
-@login_required()
+
+@login_required
 def home(request):
     return render(request, 'ecommerce_website/home.html')
 
@@ -58,44 +45,28 @@ def home(request):
 def signup(request):
     form = SignUp()
     if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password1']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        dob = request.POST["dob"]
-        gender = request.POST["gender"]
-        phone_number = request.POST["phone_number"]
-
-        if Customer.objects.filter(email=email).exists():
-            return render(request, "ecommerce_website/signup.html", {
-                "error_message": "Email already registered.",
-                'form': form
-            })
-        if Customer.objects.filter(username=username).exists():
-            return render(request, "ecommerce_website/signup.html", {
-                "error_message": "Username already registered.",
-                'form': form
-            })
         form = SignUp(request.POST)
         if form.is_valid():
-            authenticate()
-            otp = generate_otp()
-            send_email(email, otp, username)
-            request.session['pending_user'] = {
-                "username": username,
-                "email": email,
-                "password": password,
-                "first_name": first_name,
-                "last_name": last_name,
-                "dob": dob,
-                "gender": gender,
-                "phone_number": phone_number,
-            }
-            print(otp)
-            request.session['otp'] = otp
-            return redirect('verify_otp')
-
+            data = form.cleaned_data
+            if Customer.objects.filter(email=data['email']).exists():
+                messages.error(request, "Email already registered.")
+            elif Customer.objects.filter(username=data['username']).exists():
+                messages.error(request, "Username already taken.")
+            else:
+                otp = generate_otp()
+                send_email(data['email'], otp, data['username'])
+                request.session['pending_user'] = {
+                    "username": data['username'],
+                    "email": data['email'],
+                    "password": data['password1'],
+                    "first_name": data['first_name'],
+                    "last_name": data['last_name'],
+                    "dob": str(data['dob']),
+                    "gender": data['gender'],
+                    "phone_number": data['phone_number'],
+                }
+                request.session['otp'] = otp
+                return redirect('verify_otp')
     return render(request, 'ecommerce_website/signup.html', {'form': form})
 
 
@@ -106,14 +77,13 @@ def log_in(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            auth_login(request, user)
-
-            return home(request)
+            login(request, user)
+            return redirect('home')
         else:
-            return redirect(
-                '/login/', {"error_message": "Invalid Username or Password, Please try again"})
-    else:
-        return render(request, 'ecommerce_website/login.html')
+            messages.error(request, "Invalid Username or Password.")
+            return redirect('login')
+
+    return render(request, 'ecommerce_website/login.html')
 
 
 def index(request):
@@ -126,7 +96,8 @@ def verify_otp(request):
         session_otp = request.session.get("otp")
         user_data = request.session.get('pending_user')
 
-        if int(user_input_otp) == int(session_otp) and user_data:
+        if user_input_otp and session_otp and int(
+                user_input_otp) == int(session_otp):
             Customer.objects.create_user(
                 username=user_data['username'],
                 email=user_data['email'],
@@ -139,48 +110,66 @@ def verify_otp(request):
             )
             request.session.pop("pending_user", None)
             request.session.pop("otp", None)
-            send_email1(user_data['email'])
+            send_email_successful_verification(user_data['email'])
+            messages.success(
+                request, "Account created successfully. Please login.")
             return redirect("login")
         else:
-            return redirect("ecommerce_website/verify_otp.html", {
-                "error_message": "Invalid OTP. Please try again."
-            })
+            messages.error(request, "Invalid OTP. Please try again.")
+            return render(request, "ecommerce_website/verify_otp.html")
+
     return render(request, "ecommerce_website/verify_otp.html")
 
 
+@login_required
 def log_out(request):
     logout(request)
     return redirect('login')
 
 
+@login_required
 def change_password(request):
+    if request.method == "GET":
+        otp = generate_otp()
+        request.session['password_change_otp'] = otp
+        send_email(request.user.email, otp, request.user.username)
+        return render(
+            request,
+            'ecommerce_website/verify_change_password_otp.html')
+
+    elif request.method == "POST":
+        user_input_otp = request.POST.get("otp")
+        session_otp = request.session.get("password_change_otp")
+
+        if user_input_otp and session_otp and int(
+                user_input_otp) == int(session_otp):
+            request.session['otp_verified'] = True
+            return redirect('change_password_form')
+        else:
+            messages.error(request, "Invalid OTP. Try again.")
+            return render(
+                request,
+                'ecommerce_website/verify_change_password_otp.html')
+    return
+
+
+@login_required
+def change_password_form(request):
+    if not request.session.get('otp_verified'):
+        return redirect('change_password')
+
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['Password']
-        try:
-            user = Customer.objects.get(email=email)
-            token = default_token_generator.make_token(user)
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            reset_link = request.build_absolute_uri(
-                reverse('password_reset_confirm', kwargs={
-                        'uidb64': uid, 'token': token})
-            )
+        form = ChangePasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            request.session.pop('otp_verified', None)
+            messages.success(
+                request, "Your password was successfully changed!")
+            return redirect('home')
+    else:
+        form = ChangePasswordForm(user=request.user)
 
-            subject = "Reset Your Password"
-            message = f"Hi {
-                user.username},\nClick the link below to reset your password:\n{reset_link}\n\nIf you did not request this, ignore this email."
-            from_email = EMAIL_HOST_USER
-            to_email = [email]
-
-            send_mail(subject, message, from_email, to_email)
-
-            return render(request, 'ecommerce_website/change_password.html', {
-                'success_message': "Password reset link has been sent to your email."
-            })
-
-        except Customer.DoesNotExist:
-            return render(request, 'ecommerce_website/change_password.html', {
-                'error_message': "No account found with this email."
-            })
-
-    return render(request, 'ecommerce_website/change_password.html')
+    return render(request,
+                  'ecommerce_website/change_password.html',
+                  {'form': form})
