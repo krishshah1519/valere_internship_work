@@ -193,7 +193,7 @@
         </div>
 
         <p style="font-size: 16px; color: #4a5568; margin-bottom: 25px;">
-            Thank you for joining <strong>{{ site_name }}</strong>! We're excited to have you as part of our community.
+            Thank you for joining ! We're excited to have you as part of our community.
             To complete your account setup and ensure the security of your account, please verify your email address using the verification code below.
         </p>
 
@@ -202,24 +202,6 @@
             <div class="otp-number">{{ otp }}</div>
             <div class="otp-instruction">Enter this code to verify your email address</div>
             <div class="timer-badge">⏰ Expires in {{ expiry_minutes|default:"10" }} minutes</div>
-        </div>
-
-
-
-        <div class="warning-box">
-            <h3>Security Notice</h3>
-            <ul class="warning-list">
-                <li>This code will expire in "10" minutes for your security</li>
-                <li>Never share this code with anyone - we'll never ask for it</li>
-                <li>If you didn't create an account, please ignore this email</li>
-                <li>This code can only be used once</li>
-            </ul>
-        </div>
-
-        <div class="support-section">
-            <h3>Need Help?</h3>
-            <p>If you're having trouble with the verification process, our support team is here to help!</p>
-            <p>Contact us at <a href="mailto:{{ support_email|default:'support@example.com' }}"></a></p>
         </div>
 
         <div class="footer">

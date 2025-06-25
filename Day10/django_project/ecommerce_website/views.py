@@ -11,13 +11,10 @@ from .forms import SignUp, ChangePasswordForm
 from .models import Customer
 
 
-def send_email(email, otp, uname):
-    subject = "Email Verification and Account Activation"
+def send_email(subject, email, otp, uname, html_content, text_content):
+
     from_email = EMAIL_HOST_USER
     to_email = [email]
-    context = {'user': uname, 'otp': otp}
-    html_content = render_to_string('emails/emails.html', context)
-    text_content = f"Hi {uname},\nYour OTP is: {otp}. It is valid for 5 minutes.\nPlease do not share this code."
 
     email_message = EmailMultiAlternatives(
         subject, text_content, from_email, to_email)
@@ -34,7 +31,6 @@ def send_email_successful_verification(email):
 
 def generate_otp():
     return randint(100000, 999999)
-
 
 
 @login_required
@@ -54,7 +50,19 @@ def signup(request):
                 messages.error(request, "Username already taken.")
             else:
                 otp = generate_otp()
-                send_email(data['email'], otp, data['username'])
+                subject = "Email Verification and Account Activation"
+                context = {'user': data['username'], 'otp': otp}
+                html_content = render_to_string(
+                    'emails/otp_verification_mail.html', context)
+                text_content = f"Hi {
+                    data['username']},\nYour OTP is: {otp}. It is valid for 10 minutes.\nPlease do not share this code."
+                send_email(
+                    subject,
+                    data['email'],
+                    otp,
+                    data['username'],
+                    html_content,
+                    text_content)
                 request.session['pending_user'] = {
                     "username": data['username'],
                     "email": data['email'],
@@ -110,7 +118,21 @@ def verify_otp(request):
             )
             request.session.pop("pending_user", None)
             request.session.pop("otp", None)
-            send_email_successful_verification(user_data['email'])
+
+            subject = "Account verified Successfully"
+            context = {'user': user_data['username']}
+            html_content = render_to_string(
+                'emails/email-successfully_verified_mail.html', context)
+            text_content = f"Hi {
+                user_data['username']},\nYour email has been Successfully Verified.\nIf this is not you, please report via mail."
+            send_email(
+                subject,
+                user_data['email'],
+                None,
+                user_data['username'],
+                html_content,
+                text_content)
+
             messages.success(
                 request, "Account created successfully. Please login.")
             return redirect("login")
@@ -131,8 +153,21 @@ def log_out(request):
 def change_password(request):
     if request.method == "GET":
         otp = generate_otp()
+        subject = "Account password change request "
+        context = {'user': request.user.username, 'otp': otp}
+        html_content = render_to_string(
+            'emails/otp_verification_password_change_mail.html', context)
+        text_content = f"Hi {
+            request.user.username},\nYour OTP is: {otp}. It is valid for 10 minutes.\nPlease do not share this code."
+        send_email(
+            subject,
+            request.user.email,
+            otp,
+            request.user.username,
+            html_content,
+            text_content)
         request.session['password_change_otp'] = otp
-        send_email(request.user.email, otp, request.user.username)
+
         return render(
             request,
             'ecommerce_website/verify_change_password_otp.html')
@@ -164,6 +199,21 @@ def change_password_form(request):
             user = form.save()
             update_session_auth_hash(request, user)
             request.session.pop('otp_verified', None)
+
+            subject = "Account password change successfully "
+            context = {'user': request.user.username}
+            html_content = render_to_string(
+                'emails/password_successfully_changed_mail.html', context)
+            text_content = f"Hi {
+                request.user.username},\nYour Password has been successfully updated \nIf this is not you please report it ."
+            send_email(
+                subject,
+                request.user.email,
+                None,
+                request.user.username,
+                html_content,
+                text_content)
+
             messages.success(
                 request, "Your password was successfully changed!")
             return redirect('home')
