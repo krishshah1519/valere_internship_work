@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../utils/axios';
 import { FaTrashAlt, FaRegEdit } from 'react-icons/fa';
+import ExportToExcel from "./Export";
 
 export default function SearchBar() {
   const [data, setData] = useState([]);
@@ -120,10 +121,11 @@ const filteredData = data.filter((item) => {
   return (
     <div className="App">
       <Container fluid className="px-4">
-        <header className="my-4 fs-3 fw-bold">All Expenses</header>
-        <Button className="mb-3" onClick={handleAddClick}>
+        <ExportToExcel classname='flex-1 w-100  mt-[-10px] ml-10'/>
+        <header className="mt-2 ml-4 my-4 fs-3 fw-bold">  All Expenses <Button className="mt-4 mb-3 ml-7" onClick={handleAddClick}>
           Add Expense
-        </Button>
+        </Button> </header>
+
 
         <Form>
           <InputGroup className="my-3">

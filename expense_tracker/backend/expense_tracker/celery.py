@@ -1,22 +1,19 @@
 import os
-
 from celery import Celery
 
-# Set the default Django settings module for the 'celery' program.
+# Set default Django settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'expense_tracker.settings')
 
 app = Celery('expense_tracker')
 
-
-# Using a string here means the worker doesn't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix.
+# Load settings from Django settings.py
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# Load task modules from all registered Django apps.
+# Load tasks.py from all apps
 app.autodiscover_tasks()
 
+# 👇 Add this line to use django-celery-beat's database scheduler
+app.conf.beat_scheduler = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 @app.task(bind=True, ignore_result=True)
 def debug_task(self):

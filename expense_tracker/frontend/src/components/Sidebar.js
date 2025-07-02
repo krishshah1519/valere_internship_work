@@ -8,10 +8,10 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, path: '/home/' },
-    { id: 'expenses', label: 'All Expenses', icon: DollarSign, path: '/expenses/' },
+    { id: 'expenses', label: 'Manage Expenses', icon: DollarSign, path: '/expenses/' },
     { id: 'profile', label: 'Profile', icon: User, path: '/profile/' },
-    { id: 'settings', label: 'Settings', icon: Settings, path: '/settings/' },
-    { id: 'contact', label: 'Contact Us', icon: Mail, path: '/contact/' },
+    // { id: 'settings', label: 'Settings', icon: Settings, path: '/settings/' },
+    // { id: 'contact', label: 'Contact Us', icon: Mail, path: '/contact/' },
   ];
 
   const handleNavigation = (path) => {

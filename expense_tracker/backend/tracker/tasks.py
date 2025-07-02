@@ -81,3 +81,46 @@ def password_changed_successfully_mail(name, email):
     email_message.attach_alternative(html_content, "text/html")
     email_message.send()
     connection.close()
+
+from celery import shared_task
+from django.core.mail import send_mail
+from django.utils import timezone
+from datetime import timedelta
+from .models import Expense
+from django.contrib.auth import get_user_model
+from django.template.loader import render_to_string
+
+User = get_user_model()
+
+@shared_task
+def send_weekly_expense_summary():
+    today = timezone.now().date()
+    last_week = today - timedelta(days=7)
+
+    users = User.objects.all()
+    for user in users:
+        expenses = Expense.objects.filter(user=user, date__range=[last_week, today])
+        if not expenses.exists():
+            continue
+
+        total = sum(exp.amount for exp in expenses)
+        category_summary = {}
+        for exp in expenses:
+            category_summary.setdefault(exp.category, 0)
+            category_summary[exp.category] += exp.amount
+
+        message = render_to_string('weekly_email_template.html', {
+            'user': user,
+            'total': total,
+            'category_summary': category_summary,
+            'start_date': last_week,
+            'end_date': today,
+        })
+
+        send_mail(
+            subject='Your Weekly Expense Summary',
+            message='',
+            from_email='noreply@yourapp.com',
+            recipient_list=[user.email],
+            html_message=message
+        )

@@ -1,7 +1,7 @@
-from django.urls import path
-from rest_framework import routers
+
 from .views import RegisterAPIView, VerifyOTPView, LoginAPIView, LogoutAPIView, ExpenseAPIView, ExpenseDetailAPIView, \
-    RegisterTemplateView, ExpenseStatsAPIView, ExpenseChartAPIView, ExpenseYearlyChartAPIView
+    RegisterTemplateView, ExpenseStatsAPIView, ExpenseChartAPIView, ExpenseYearlyChartAPIView, ExportAPIView, \
+    CategoryListAPIView, UserExpenseSummaryAPIView, AllCategoriesAPIView
 from django.urls import path
 from .views import get_csrf_token
 
@@ -39,5 +39,9 @@ urlpatterns = [
     path('api/expenses/chart/',
          ExpenseChartAPIView.as_view(),
          name='expense-chart'),
-    path('api/expenses/yearly-chart/', ExpenseYearlyChartAPIView.as_view())
+    path('api/expenses/yearly-chart/', ExpenseYearlyChartAPIView.as_view()),
+    path("api/export/", ExportAPIView.as_view()),
+    path('api/categories/', CategoryListAPIView.as_view(), name='category-list'),
+    path("api/admin/summary/", UserExpenseSummaryAPIView.as_view(), name="admin-summary"),
+    path("api/admin/categories/", AllCategoriesAPIView.as_view(), name="admin-categories"),
 ]

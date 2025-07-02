@@ -5,6 +5,7 @@ import SignupPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import VerifyOtp from "./pages/VerifyOtp";
 import ExpensesPage from "./pages/ExpensesPage";
+import AdminDashboard from "./pages/AdminDashBoard";
 
 
 
@@ -21,6 +22,8 @@ function App() {
           <Route path="/verifyotp/" element={<VerifyOtp />} />
           <Route path="*" element={<div>404 Not Found</div>} />
           <Route path="/expenses/" element={<ExpensesPage/>} />
+          <Route path="/admin-dashboard/" element={<AdminDashboard />} />
+
       </Routes>
     </Router>
 

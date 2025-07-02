@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from '../utils/axios';
-import {useState} from "react";
+import { useState } from "react";
 
 export default function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -18,7 +18,13 @@ export default function LoginPage() {
 
       if (response.status === 200 && response.data.status) {
         console.log("Login successful");
-        navigate('/home/');
+
+        const isStaff = response.data.is_staff;
+        if (isStaff) {
+          navigate('/admin-dashboard');
+        } else {
+          navigate('/home/');
+        }
       }
     } catch (error) {
       if (error.response) {
@@ -39,7 +45,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md p-8 rounded-lg shadow-lg border-1 border-lg  bg-white"
+        className="w-full max-w-md p-8 rounded-lg shadow-lg border-1 border-lg bg-white"
         autoComplete="off"
       >
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Login</h2>
@@ -59,16 +65,20 @@ export default function LoginPage() {
           <input
             type="password"
             placeholder="Password"
-            {...register("password", { required: true ,minLength:8})}
+            {...register("password", { required: true, minLength: 8 })}
             className="w-full px-4 py-2 mb-3 rounded border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.password?.type === 'required' && (
             <p className="text-red-500 text-sm mb-2">Password is required</p>
           )}
           {errors.password?.type === 'minLength' && (
-            <p className="text-red-500 text-sm mb-2">Password is must be of 8 Characters</p>
-           )}
+            <p className="text-red-500 text-sm mb-2">Password must be at least 8 characters</p>
+          )}
         </div>
+
+        {apiError && (
+          <p className="text-red-500 text-sm mb-4 text-center">{apiError}</p>
+        )}
 
         <button
           type="submit"

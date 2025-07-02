@@ -2,10 +2,12 @@ from random import randint
 from django.core.cache import cache
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework import status
+from unicodedata import category
+import pandas as pd
 from .serializer import UserSerializer, LoginSerializer, ExpenseSerializer, RegisterSerializer
 from datetime import timedelta, datetime
 from django.contrib.auth import get_user_model
@@ -15,7 +17,7 @@ from uuid import uuid4
 from .models import Expense
 from django.views import View
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from dateutil.relativedelta import relativedelta
 from rest_framework.views import APIView
@@ -32,6 +34,100 @@ def get_csrf_token(request):
 
 
 User = get_user_model()
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
+
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.views       import APIView
+from rest_framework.response    import Response
+from django.db.models           import Sum
+from datetime                   import datetime
+from dateutil.relativedelta     import relativedelta
+
+from .models import Expense
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class UserExpenseSummaryAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get(self, request):
+        # --- 1. Read filters ---
+        user_id    = request.query_params.get("user_id")
+        start_date = request.query_params.get("start_date")
+        end_date   = request.query_params.get("end_date")
+        month      = request.query_params.get("month")     # YYYY-MM
+        category   = request.query_params.get("category")
+
+        # --- 2. Build base user queryset ---
+        if user_id:
+            users = User.objects.filter(id=user_id)
+        else:
+            users = User.objects.all()
+
+        result = []
+
+        for user in users:
+            # --- 3. Build filtered Expense queryset for this user ---
+            qs = Expense.objects.filter(user=user)
+
+            if start_date and end_date:
+                qs = qs.filter(date__range=[start_date, end_date])
+            elif month and category:
+                try:
+                    dt = datetime.strptime(month, "%Y-%m")
+                    qs = qs.filter(
+                        date__year = dt.year,
+                        date__month = dt.month,
+                        category   = category
+                    )
+                except ValueError:
+                    return Response(
+                        {"error": "Invalid month format. Use YYYY-MM."},
+                        status=400
+                    )
+            elif month:
+                try:
+                    dt = datetime.strptime(month, "%Y-%m")
+                    qs = qs.filter(
+                        date__year  = dt.year,
+                        date__month = dt.month
+                    )
+                except ValueError:
+                    return Response(
+                        {"error": "Invalid month format. Use YYYY-MM."},
+                        status=400
+                    )
+            elif category:
+                qs = qs.filter(category=category)
+
+            # --- 4. Aggregate total spent ---
+            total_spent = qs.aggregate(total=Sum("amount"))["total"] or 0
+
+            # --- 5. Category‐wise breakdown ---
+            cat_summary = (
+                qs
+                .values("category")
+                .annotate(total=Sum("amount"))
+                .order_by("category")
+            )
+            # Convert to list of simple dicts
+            cat_list = [
+                {"category": entry["category"], "total": entry["total"]}
+                for entry in cat_summary
+            ]
+
+            result.append({
+                "id":                user.id,
+                "username":          user.username,
+                "email":             user.email,
+                "total_spent":       total_spent,
+                "category_summary":  cat_list,
+            })
+
+        return Response(result)
+
 
 
 class ExpenseYearlyChartAPIView(APIView):
@@ -220,6 +316,8 @@ class VerifyOTPView(APIView):
             )
 
 
+# views.py
+
 class LoginAPIView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
@@ -228,26 +326,22 @@ class LoginAPIView(APIView):
         serializer = LoginSerializer(data=request.data)
 
         if not serializer.is_valid():
-            return Response({"status": False,
-                             "error": serializer.errors},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response({"status": False, "error": serializer.errors}, status=400)
 
         validated_data = serializer.validated_data
-
-        user = authenticate(
-            username=validated_data['username'],
-            password=validated_data['password'])
+        user = authenticate(username=validated_data['username'], password=validated_data['password'])
 
         if user is None:
-            return Response({"status": False,
-                             "message": "Invalid Credentials"},
-                            status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"status": False, "message": "Invalid Credentials"}, status=401)
 
         login(request, user)
+
         return Response({
             "status": 200,
-            "message": "Login Successful."
+            "message": "Login Successful",
+            "is_staff": user.is_staff,  # ✅ return this
         })
+
 
 
 class LogoutAPIView(APIView):
@@ -334,3 +428,73 @@ class ExpenseDetailAPIView(APIView):
         cache.delete(f"expense_stats_{request.user.id}")
 
         return Response("Expense successfully updated", status.HTTP_200_OK)
+
+
+
+from rest_framework.views       import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response    import Response
+from django.http                import HttpResponse
+from django.db.models           import Sum
+import pandas as pd
+
+from .models import Expense
+
+class ExportAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data       = request.data
+        user_id    = data.get("user_id")
+        start_date = data.get("start_date")
+        end_date   = data.get("end_date")
+        category   = data.get("category")
+
+
+        if request.user.is_staff and user_id:
+            qs = Expense.objects.filter(user_id=user_id)
+        else:
+            qs = Expense.objects.filter(user=request.user)
+
+
+        if start_date and end_date:
+            qs = qs.filter(date__range=[start_date, end_date])
+
+
+        if category:
+            qs = qs.filter(category=category)
+
+
+        if not qs.exists():
+            return Response(
+                {"error": "No data found for these filters."},
+                status=404
+            )
+
+        df = pd.DataFrame(
+            qs.values("id", "category", "date", "description","amount","user")
+        )
+        response = HttpResponse(
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response["Content-Disposition"] = 'attachment; filename="expenses.xlsx"'
+
+        with pd.ExcelWriter(response, engine="openpyxl") as writer:
+            df.to_excel(writer, sheet_name="Expenses", index=False)
+
+        return response
+
+class CategoryListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        categories = Expense.objects.filter(user=request.user).values_list('category', flat=True).distinct()
+        return Response({"categories": list(categories)})
+
+class AllCategoriesAPIView(APIView):
+
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    def get(self, request):
+        cats = Expense.objects.values_list("category", flat=True).distinct()
+        return Response({"categories": list(cats)})
+

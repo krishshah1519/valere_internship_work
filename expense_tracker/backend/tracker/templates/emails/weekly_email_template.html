@@ -1,0 +1,9 @@
+<h2>Hello {{ user.username }},</h2>
+<p>Here is your expense summary from {{ start_date }} to {{ end_date }}:</p>
+<ul>
+  {% for category, amount in category_summary.items %}
+    <li><strong>{{ category }}</strong>: ₹{{ amount }}</li>
+  {% endfor %}
+</ul>
+<p><strong>Total Spent:</strong> ₹{{ total }}</p>
+<p>– Smart Expense Tracker</p>
