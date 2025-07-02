@@ -1,0 +1,218 @@
+<!-- templates/emails/otp_verification.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Smart Expense Tracker</title>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+        margin: 0;
+        padding: 20px;
+        color: #2d3748;
+    }
+    .email-container {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 40px 30px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        max-width: 600px;
+        margin: auto;
+    }
+    .email-container::before {
+        content: '';
+        display: block;
+        height: 5px;
+        width: 100%;
+        background: linear-gradient(to right, #00b4db, #0083b0);
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 20px;
+    }
+    .header h1 {
+        font-size: 28px;
+        color: #4a00e0;
+        font-weight: 700;
+        margin: 0;
+    }
+    .welcome-section {
+        background: #667eea;
+        color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .welcome-section h2 {
+        font-size: 24px;
+        margin: 0 0 10px;
+    }
+    .welcome-section p {
+        margin: 0;
+        font-size: 14px;
+    }
+    .greeting {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    .otp-section {
+        background: #ff6b6b;
+        color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    .otp-section::before {
+        content: '🔒';
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        font-size: 20px;
+        opacity: 0.2;
+    }
+    .otp-label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+    .otp-number {
+        font-size: 36px;
+        letter-spacing: 10px;
+        font-weight: 800;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        display: inline-block;
+        padding: 12px 24px;
+        margin: 10px 0;
+    }
+    .otp-instruction, .timer-badge {
+        font-size: 13px;
+        margin-top: 8px;
+        opacity: 0.85;
+    }
+    .timer-badge {
+        background: #e84393;
+        padding: 6px 16px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-top: 12px;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(232, 67, 147, 0.25);
+    }
+    .warning-box {
+        background: #fff3cd;
+        border-left: 6px solid #ffc107;
+        border-radius: 10px;
+        padding: 20px;
+        color: #856404;
+        margin-bottom: 30px;
+    }
+    .warning-box h3 {
+        margin: 0 0 12px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+    .warning-box h3::before {
+        content: '⚠';
+        margin-right: 8px;
+    }
+    .warning-list {
+        padding-left: 20px;
+        margin: 0;
+    }
+    .warning-list li {
+        margin-bottom: 10px;
+        list-style: disc;
+    }
+    .support-section {
+        background: #dff9fb;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        color: #130f40;
+    }
+    .support-section h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        color: #22a6b3;
+    }
+    .support-section a {
+        color: #0984e3;
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s;
+    }
+    .support-section a:hover {
+        border-bottom: 1px solid #0984e3;
+    }
+    .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 13px;
+        color: #636e72;
+    }
+    .footer h4 {
+        font-size: 15px;
+        margin-bottom: 10px;
+        color: #2d3436;
+    }
+    @media only screen and (max-width: 600px) {
+        .email-container {
+            padding: 25px 20px;
+        }
+        .otp-number {
+            font-size: 28px;
+            letter-spacing: 6px;
+        }
+        .button {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Smart Expense Tracker</h1>
+        </div>
+
+        <div class="welcome-section">
+            <h2>🎉 Welcome Aboard!</h2>
+            <p>You're just one step away from getting started</p>
+        </div>
+
+        <div class="greeting">
+            Hello <strong>{{ name }}</strong>,
+        </div>
+
+        <p style="font-size: 16px; color: #4a5568; margin-bottom: 25px;">
+            Thank you for joining ! We're excited to have you as part of our community.
+            To complete your account setup and ensure the security of your account, please verify your email address using the verification code below.
+        </p>
+
+        <div class="otp-section">
+            <div class="otp-label">Your Verification Code</div>
+            <div class="otp-number">{{ otp }}</div>
+            <div class="otp-instruction">Enter this code to verify your email address</div>
+            <div class="timer-badge">⏰ Expires in {{ expiry_minutes|default:"10" }} minutes</div>
+        </div>
+
+        <div class="footer">
+            <h4>Best regards,<br>The Ecommerce Website Team</h4>
+            <p>
+                <small>
+                    This is an automated message. Please do not reply to this email.<br>
+                    If you have any questions, contact us at djangoproject837@gmail.com
+                </small>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
