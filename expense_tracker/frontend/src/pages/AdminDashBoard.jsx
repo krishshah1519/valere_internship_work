@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../utils/axios";
 
 const AdminDashboard = () => {
-  const [users, setUsers]                 = useState([]);    // table data
-  const [categories, setCategories]       = useState([]);    // category dropdown
-  const [filterUser, setFilterUser]       = useState("");
-  const [filterStartDate, setFilterStartDate] = useState("");
-  const [filterEndDate, setFilterEndDate]     = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
-  const [error, setError]                 = useState("");
+  const navigate = useNavigate();
 
-  // load categories once
+  const [users, setUsers] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filterUser, setFilterUser] = useState("");
+  const [filterStartDate, setFilterStartDate] = useState("");
+  const [filterEndDate, setFilterEndDate] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [error, setError] = useState("");
+
+
   useEffect(() => {
     api.get("/admin/categories/")
       .then(res => setCategories(res.data.categories))
       .catch(() => setError("Not authorized"));
   }, []);
 
-  // whenever any filter changes, re‑fetch the summary
+
   useEffect(() => {
     const fetchSummary = async () => {
       try {
@@ -38,22 +41,21 @@ const AdminDashboard = () => {
     fetchSummary();
   }, [filterUser, filterStartDate, filterEndDate, filterCategory]);
 
-  // export with same filters
   const handleExport = async () => {
     try {
       const res = await api.post(
         "/export/",
         {
-          user_id:    filterUser,
+          user_id: filterUser,
           start_date: filterStartDate,
-          end_date:   filterEndDate,
-          category:   filterCategory,
+          end_date: filterEndDate,
+          category: filterCategory,
         },
         { responseType: "blob" }
       );
-      const url  = window.URL.createObjectURL(new Blob([res.data]));
+      const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
-      link.href     = url;
+      link.href = url;
       link.download = "expenses.xlsx";
       document.body.appendChild(link);
       link.click();
@@ -62,14 +64,36 @@ const AdminDashboard = () => {
     }
   };
 
+
+  const handleLogout = async () => {
+    try {
+      const res = await api.post("/logout/", {}, { withCredentials: true });
+      if (res.status === 200 && res.data.status) {
+        navigate("/login/");
+      }
+    } catch {
+      alert("Logout failed");
+    }
+  };
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">📊 Admin Dashboard</h1>
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold"> Admin Dashboard</h1>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Logout
+        </button>
+      </div>
+
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      {/* Dynamic Filters */}
+
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-6">
-        {/* User */}
+
         <div>
           <label className="block text-sm mb-1">User</label>
           <select
@@ -84,7 +108,7 @@ const AdminDashboard = () => {
           </select>
         </div>
 
-        {/* Start Date */}
+
         <div>
           <label className="block text-sm mb-1">Start Date</label>
           <input
@@ -95,7 +119,6 @@ const AdminDashboard = () => {
           />
         </div>
 
-        {/* End Date */}
         <div>
           <label className="block text-sm mb-1">End Date</label>
           <input
@@ -106,7 +129,7 @@ const AdminDashboard = () => {
           />
         </div>
 
-        {/* Category */}
+
         <div>
           <label className="block text-sm mb-1">Category</label>
           <select
@@ -115,13 +138,13 @@ const AdminDashboard = () => {
             onChange={e => setFilterCategory(e.target.value)}
           >
             <option value="">All</option>
-            {categories.map((c,i) => (
+            {categories.map((c, i) => (
               <option key={i} value={c}>{c}</option>
             ))}
           </select>
         </div>
 
-        {/* Export Button */}
+
         <div className="flex items-end">
           <button
             onClick={handleExport}
@@ -132,7 +155,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Table */}
+
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300">
           <thead>

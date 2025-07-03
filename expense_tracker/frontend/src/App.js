@@ -6,8 +6,8 @@ import HomePage from './pages/HomePage';
 import VerifyOtp from "./pages/VerifyOtp";
 import ExpensesPage from "./pages/ExpensesPage";
 import AdminDashboard from "./pages/AdminDashBoard";
-
-
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
 
@@ -23,6 +23,8 @@ function App() {
           <Route path="*" element={<div>404 Not Found</div>} />
           <Route path="/expenses/" element={<ExpensesPage/>} />
           <Route path="/admin-dashboard/" element={<AdminDashboard />} />
+          <Route path="/about/" element={<AboutPage/>}/>
+          <Route path="/contact/" element={<ContactPage/>}/>
 
       </Routes>
     </Router>
