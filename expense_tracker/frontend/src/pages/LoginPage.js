@@ -19,12 +19,15 @@ export default function LoginPage() {
       if (response.status === 200 && response.data.status) {
         console.log("Login successful");
 
+
         const isStaff = response.data.is_staff;
         if (isStaff) {
           navigate('/admin-dashboard');
+
         } else {
           navigate('/home/');
         }
+        window.location.reload();
       }
     } catch (error) {
       if (error.response) {

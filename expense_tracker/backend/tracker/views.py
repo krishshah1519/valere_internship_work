@@ -165,12 +165,11 @@ class ExpenseChartAPIView(APIView):
                 start_of_month, end_of_month))
         category_data = expenses.values(
             'category').annotate(total=Sum('amount'))
-        date_data = expenses.values('date').annotate(
-            total=Sum('amount')).order_by('date')
+
 
         chart_data = {
             "category_summary": list(category_data),
-            "daily_summary": list(date_data)
+
         }
 
         return Response(chart_data)

@@ -7,6 +7,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
+
       const res = await api.post('/logout/', {}, { withCredentials: true });
       if (res.status === 200 && res.data.status) {
         navigate('/login/');

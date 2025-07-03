@@ -71,13 +71,13 @@ const ExpenseLineChart = () => {
       legend: {
         position: 'top',
         labels: {
-          color: '#374151', // gray-700
+          color: '#374151',
         },
       },
       title: {
         display: true,
         text: `Expense Trends for ${year}`,
-        color: '#111827', // gray-900
+        color: '#111827',
         font: {
           size: 18,
         },
